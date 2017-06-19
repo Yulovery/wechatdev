@@ -38,7 +38,7 @@ class Handle(object):
             if isinstance(recMsg, receive.Msg) and recMsg.MsgType == 'text':
                 toUser = recMsg.FromUserName
                 fromUser = recMsg.ToUserName
-                content = recMsg.Content.text
+                content = recMsg.Content.text.encode("utf-8")
                 replyMsg = reply.TextMsg(toUser, fromUser, content)
                 return replyMsg.send()
             else:
