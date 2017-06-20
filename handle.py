@@ -42,19 +42,20 @@ class Handle(object):
                 if recMsg.MsgType == 'text':
                     content = recMsg.Content
                     #print content, type(content)
-                    if content[0:7] == 'weather':
-                        cityname=content[0:-2]
-                        params ={'cityname': cityname, 'key': '59c4d4057feed1a7ac32e7055ae7d849'}
+                    if content[-2:] == 'tq':
+                        cityname = content[0:-2]
+                        infomation ={'cityname': cityname, 'key': '59c4d4057feed1a7ac32e7055ae7d849'}
                         url = 'http://v.juhe.cn/weather/index'
-                        resp = requests.get(url, params=params)
+                        resp = requests.get(url, params=infomation)
                         weather = resp.json()['result']['today']['weather']
                         info = resp.json()
                         print info
-                        content = weather.encode('utf-8')
+                        response = weather.encode('utf-8')
                         #content[0;2] == "天气" or 
+                        replyMsg = reply.TextMsg(toUser, fromUser, response)
                     else:
-                        pass
-                    replyMsg = reply.TextMsg(toUser, fromUser, content)
+                        replyMsg = reply.TextMsg(toUser, fromUser, content)
+                    
                 elif recMsg.MsgType == 'image':
                     Images = recMsg.MediaId
                     replyMsg = reply.ImageMsg(toUser, fromUser, Images)
