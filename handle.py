@@ -42,7 +42,7 @@ class Handle(object):
                 if recMsg.MsgType == 'text':
                     content = recMsg.Content
                     #print content, type(content)
-                    if content[-2:] == "天气":
+                    if content[0:7] == 'weather':
                         cityname=content[0:-2]
                         params ={'cityname': cityname, 'key': '59c4d4057feed1a7ac32e7055ae7d849'}
                         url = 'http://v.juhe.cn/weather/index'
@@ -50,7 +50,7 @@ class Handle(object):
                         weather = resp.json()['result']['today']['weather']
                         info = resp.json()
                         print info
-                        content = weather
+                        content = weather.encode('utf-8')
                         #content[0;2] == "天气" or 
                     else:
                         pass
