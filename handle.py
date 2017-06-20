@@ -4,6 +4,7 @@ import hashlib
 import reply
 import receive
 import web
+import requests
 
 class Handle(object):
     def GET(self):
@@ -41,8 +42,20 @@ class Handle(object):
                 if recMsg.MsgType == 'text':
                     content = recMsg.Content
                     #print content, type(content)
+                    if content[-2:] == "天气":
+                        cityname=content[0:-2]
+                        params ={'cityname': cityname, 'key': '59c4d4057feed1a7ac32e7055ae7d849'}
+                        url = 'http://v.juhe.cn/weather/index'
+                        resp = requests.get(url, params=params)
+                        weather = resp.json()['result']['today']['weather']
+                        info = resp.json()
+                        print info
+                        content = weather
+                        #content[0;2] == "天气" or 
+                    else:
+                        pass
                     replyMsg = reply.TextMsg(toUser, fromUser, content)
-                else if recMsg.MsgType == 'Image':
+                elif recMsg.MsgType == 'image':
                     Images = recMsg.MediaId
                     replyMsg = reply.ImageMsg(toUser, fromUser, Images)
                 return replyMsg.send()
