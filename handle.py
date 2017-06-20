@@ -42,14 +42,14 @@ class Handle(object):
                 if recMsg.MsgType == 'text':
                     content = recMsg.Content
                     #print content, type(content)
-                    if content[-2:] == 'tq':
+                    if content[-2:] == u'天气':
                         cityname = content[0:-2]
                         infomation ={'cityname': cityname, 'key': '59c4d4057feed1a7ac32e7055ae7d849'}
                         url = 'http://v.juhe.cn/weather/index'
                         resp = requests.get(url, params=infomation)
                         weather = resp.json()['result']['today']['weather']
                         info = resp.json()
-                        print info
+                        print info.encode('utf-8')
                         response = weather.encode('utf-8')
                         #content[0;2] == "天气" or 
                         replyMsg = reply.TextMsg(toUser, fromUser, response)
