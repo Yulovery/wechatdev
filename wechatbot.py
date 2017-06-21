@@ -3,6 +3,7 @@ import werobot
 from werobot.replies import ImageReply
 import requests
 import urllib, cStringIO
+from PIL import Image
 
 robot = werobot.WeRoBot(token='yoyo')
 
