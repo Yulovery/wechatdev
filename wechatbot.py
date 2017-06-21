@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import werobot
 from werobot.replies import ImageReply
+import requests
 
 robot = werobot.WeRoBot(token='yoyo')
 
